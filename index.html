@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SwitchQuip</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    input[type="text"] {
+      padding: 10px;
+      width: 300px;
+      font-size: 16px;
+
+    }
+    #output {
+      margin-top: 20px;
+      font-size: 18px;
+    }
+    .box {
+      margin-top: 20px;
+    }
+
+    #pretzel {
+      text-align: center;
+      font-size: 15px;
+    }
+  </style>
+</head>
+<body>
+  <h1>SwitchQuip Encoder & Decoder</h1>
+  <div class="box">
+    <h2>Encoding</h2>
+    <input type="text" id="inputTextEncode" placeholder="Enter text to encode" oninput="encodeText()">
+    <div id="outputEncode"></div>
+  </div>
+
+  <div class="box">
+    <h2>Decoding</h2>
+    <input type="text" id="inputTextDecode" placeholder="Enter text to decode" oninput="decodeText()">
+    <div id="outputDecode"></div>
+  </div>
+
+  <script>
+    const key = {
+      'a': ['9', 'Q', 'á'],
+      'b': ['ï', 'w', 'x'],
+      'c': ['z', 'â', 'î'],
+      'd': ['û', 'ô', 'K'],
+      'e': ['Y', 'O', 'l'],
+      'f': ['ò', 'P', 'q'],
+      'g': ['C', 'R', 'ĩ'],
+      'h': ['T', 's', 'v'],
+      'i': ['u', '4', 'N'],
+      'j': ['ć', 'V', '3'],
+      'k': ['ì', 'ġ', 'a'],
+      'l': ['é', '0', 'Z'],
+      'm': ['X', 'B', 'H'],
+      'n': ['J', 'g', 'ä'],
+      'o': ['F', 'E', '7'],
+      'p': ['W', '2', 'ö'],
+      'q': ['A', 'i', 'ë'],
+      'r': ['n', '1', 't'],
+      's': ['m', 'd', 'S'],
+      't': ['D', 'b', 'c'],
+      'u': ['«', 'G', 'ű'],
+      'v': ['r', '5', 'o'],
+      'w': ['f', 'M', '6'],
+      'x': ['8', 'y', 'h'],
+      'y': ['k', 'ũ', 'ū'],
+      'z': ['ǔ', 'j', 'ñ'],
+      '.': ['ů', 'è', 'à'],
+      ',': ['ź', 'ù', 'ŵ'],
+      '?': ['§', '¡', '@'],
+      ' ': ['¥', '£', '€'], /* Remove This Line To Keep Spaces */
+      '1': ['=', '₽', '¢'],
+      '2': ['¿', 'ħ', '>'],
+      '3': ['»', '°', 'ž'],
+      '4': ['µ', ':', '-'],
+      '5': [';', '/', '%'],
+      '6': ['ī', 'ğ', 'ř'],
+      '7': ['ă', 'ľ', 'ĺ'],
+      '8': ['ń', 'ċ', 'þ'],
+      '9': ['ā', 'ø', 'ç'],
+      '0': ['<', '*', '#'],
+      ':': ['e', '~', '•'],
+      '/': ['ň', 'ż', 'ÿ']
+    };
+
+    function encodeText() {
+      const inputText = document.getElementById('inputTextEncode').value.toLowerCase();
+      let encodedText = '';
+
+      for (let i = 0; i < inputText.length; i++) {
+        const char = inputText[i];
+        if (char in key) {
+          const randomIndex = Math.floor(Math.random() * key[char].length);
+          encodedText += key[char][randomIndex];
+        } else {
+          encodedText += char;
+        }
+      }
+
+      document.getElementById('outputEncode').innerText = encodedText;
+    }
+
+    function decodeText() {
+      const encodedText = document.getElementById('inputTextDecode').value;
+      let decodedText = '';
+
+      for (let i = 0; i < encodedText.length; i++) {
+        const char = encodedText[i];
+        let found = false;
+        for (const letter in key) {
+          if (key[letter].includes(char)) {
+            decodedText += letter;
+            found = true;
+            break;
+          }
+        }
+        if (!found) {
+          decodedText += char;
+        }
+      }
+
+      document.getElementById('outputDecode').innerText = decodedText;
+    }
+  </script>
+  <div id="pretzel"> Made With 🥨 by <a href="https://github.com/SamJ2104">Sam </a> </div>
+</body>
+</html>
